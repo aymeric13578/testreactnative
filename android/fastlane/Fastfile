@@ -12,7 +12,7 @@ platform :android do
     # Fetch the previous build number from Google Play
     previous_build_number = google_play_track_version_codes(
       package_name: package_name,         # Pass package_name as a string
-      json_key_file: json_key_file_path,  # Pass json_key_file as a parameter
+      json_key: json_key_file_path,       # Corrected to use `json_key`
       track: "beta"
     )[0]
 
@@ -34,7 +34,7 @@ platform :android do
     upload_to_play_store(
       track: "beta",
       aab: "app/build/outputs/bundle/release/app-release.aab",
-      json_key_file: json_key_file_path, # Pass json_key_file to upload_to_play_store
+      json_key: json_key_file_path,      # Corrected to use `json_key`
       package_name: package_name         # Pass package_name as a string
     )
 
