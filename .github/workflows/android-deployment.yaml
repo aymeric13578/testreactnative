@@ -19,24 +19,18 @@ jobs:
         with:
           ruby-version: 2.7.4
 
-      - name: Install Dependencies
+      - name: Install Ruby Dependencies
         run: |
           cd android
           bundle install
 
-      #- name: Setup dependencies
-      #  run: |
-      #    echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > android/google-service-account-key.json
-      #    echo "${{ secrets.ANDROID_SIGNING_KEY }}" > my-upload-key.keystore.asc
-      #    gpg -d --passphrase "${{ secrets.ANDROID_SIGNING_KEY_PASSPHRASE }}" --batch my-upload-key.keystore.asc > android/app/my-upload-key.keystore
-
-      - name: Setup dependencies
+      - name: Setup Google Service Account Key
         run: |
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > android/google-service-account-key.json
 
       - name: Build and deploy
         run: |
+          cd android
           npm install
           export NODE_OPTIONS=--openssl-legacy-provider
-          cd android
           bundle exec fastlane android internal
