@@ -48,6 +48,7 @@ jobs:
       - name: Setup Google Services Account Key
         run: |
           printf "%s" "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
+          echo android/google-service-account-key.json
           jq . android/google-service-account-key.json  # This line checks if the JSON is valid
 
 
