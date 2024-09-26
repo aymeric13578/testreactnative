@@ -1,3 +1,8 @@
+package_name = "com.testreactnativeproject" # e.g. com.krausefx.app
+json_key_file_path = "./google-service-account-key.json" # Correct path to the json secret file
+gradle_file_path = "./app/build.gradle"
+slack_weebhook_url = ENV["SLACK_WEBHOOK_URL"]
+
 platform :android do
   desc "Build and deploy to internal track"
   lane :internal do
