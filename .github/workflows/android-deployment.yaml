@@ -53,7 +53,7 @@ jobs:
 
       - name: Setup Google Services Account Key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | jq . > android/google-service-account-key.json
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}"  > android/google-service-account-key.json & jq . android/google-service-account-key.json
 
       - name: Verify Google Services Account Key File
         run: |
