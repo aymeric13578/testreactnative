@@ -38,9 +38,6 @@ jobs:
         run: |
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}"
 
-      - name: Check file format
-        run: file android/google-service-account-key.json
-
       - name: Setup Google Service Account Key
         run: |
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
