@@ -34,6 +34,11 @@ jobs:
           cd android
           npm install
 
+      - name: Debug Google Service Account Key
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}"
+
+
       - name: Setup Google Service Account Key
         run: |
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
