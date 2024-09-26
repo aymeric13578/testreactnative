@@ -8,10 +8,6 @@ default_platform(:android)
 platform :android do
   desc "Build and deploy to internal track"
   lane :internal do
-    # Debug logging
-    puts "JSON Key File Path: #{json_key_file_path}"
-    puts "File Exists: #{File.exist?(json_key_file_path)}"
-
     # Fetch the previous build number from Google Play
     previous_build_number = google_play_track_version_codes(
       package_name: package_name,         
