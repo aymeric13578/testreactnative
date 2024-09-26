@@ -1,7 +1,7 @@
-name: android-deployment
+name: android-deployment  # Set your desired name here
 
 on:
- push:
+  push:
     branches:
       - 'master'
 
