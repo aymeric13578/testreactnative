@@ -45,31 +45,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Debug Google Service Account Key
-        run: |
-          printf '%s' '{
-            "type": "service_account",
-            "project_id": "stunning-maxim-436609-r0",
-            "private_key_id": "c93188724bedf059b9dbb58c465be7a24b994f5e",
-            "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDMd0ntBbxfVs7l\nCtGan41sJ++18HyDBKc8yQ1a+ACOd/3tLF3aVDJ+NKhSofu+SaTikvFif6eAO4ED\npgxpbIJIJJiC0gXFiMhHS4dtkvsLiMos43cNAUAKVMXNBj2yTT/z2yfC6e059xNX\ni8dEIh1Qe4tIA69tzbIHNjgNrdjyyKFpedX2hcS4m4ohzK0KH3uI/brxqwfYu1g2\nOKb7j4/BY9rqxwBOKFTuBpW9uKdfMxSLg0XZJex1OljG3wj0QQ2xS3JtM8DBeab0\nM92psZkotrzVDUqoX8hh9nx4jGR98bjY4Ti4k8jxAtVwo2ExYeG0NR9oFnzKVSnw\nPiEQqmTfAgMBAAECggEAMAm4wyjNVKL7EgIEM+1XlzkczyS0xD2EIzpjWmOZEd/s\nN1xson6UrGUnxN5M3KzFwfvfHZK7YlvYmGhbUyuMwnFiqZ25gGr+Dw4WP+6/77pQ\nMdKxZktMZgD7xgs41JrksyDiyx8VvsAnebKb+wx+0altFFrVTRl+QcaBzejx5zxD\nemo1b/SY5KSJ/qGRI4M+7NCumJ+eaOIMLGBGu64GmgI1HfQligVylNfHv+/IT44i\n//SSZmWTyIi/e2jGl4q1vaQouidfiTLs2R2aulI4kpLv9fhUoulshAsNsEVW23OG\npBDMIMsTSQm0upa5+k5s8IwcjSoayEUm+lz7PjzdUQKBgQDlzqDoqmkqoeN51Oo2\nkFfjxG9zioj7+cybcp/XlenONYAiUIXYy1GgIsf6S8mca8d7Ai3nFnZBfk2xsDc\nukfjF40HI9nXqp6U24e4NjavWarFP4K5nLrALv4HoAfa+HBIR1q7j1ZThpR6FWQd0\njYW089YyrlanIpy0HFRVG8OvbwKBgQDjxT/C/VH3P7yVbChBK9JovWvhi+PBmAPGn1zmOuw0j/0cVspUXWQY664J/jRvJqbfBK+bs8FvAxq7vuadHiYGtZIOCI1GMK/6Vnh3zBo0Bk8x3MgZRSsQI8lMM+CzaBTSSTAYH1fjrhebalGLDFuehoUriSJGLrr9GLnfcY08ljpkQKBgFWxRUM9OFYTY/WsNWH/VSazuzOEdywuq+NTTNNhLXwdaxhgmmiKn+HcUQSnOVPGlJw9xcph3QcWOSX52zTzqZa+03HUJolLMDMl4WgJnz6n2wwOcLqx/nNlpLIS/Ye5/Ma9iHC1Qd8pRptAXZevQ1SaR+QGNJqzpLp89puPC7l661AoGBAJedn0KDSkYI9OiJY+b7QFeLE3JAp13Uh5LmywMyi9M9WeZIW6ym8h+ompRqU6r9lqzz6nJWDpapo7Z22KLrDu9pReSTASpJDjJDeTFder/Qx1zQs54mrdCzkaaZDeU+zkVglJnQqIQ4c7/fzYM5nboFq2DCvu1Huf2hE0PbyYFgGwRAoGAb7IilVEnLEyHhvTmBhZynqqn+UHfVl/QChvAAhnmYDQKTtLf18BdHcGKCPRRIJeHSkSiYtv0M34B0CF+fgo+/nJdMbE7JBqDBM0hJ3tu6/b6MUZZjnINo2r5Ih6vUh4RGdx4LJyxaXfmfN5bl7NhLxn6B1MvFxOU48eDzhYCz7U2O0\n-----END PRIVATE KEY-----\n",
-            "client_email": "example@stunning-maxim-436609-r0.iam.gserviceaccount.com",
-            "client_id": "107448919887037621490",
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-          }' > android/google-service-account-key.json
-
-
-
       - name: Setup Google Services Account Key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
-          jq . android/google-service-account-key.json  # Validate JSON
-
+            echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
+            jq . android/google-service-account-key.json  # This line checks if the JSON is valid
 
       - name: Verify Google Services Account Key File
         run: |
           cat android/google-service-account-key.json
+
 
       - name: Build and deploy
         run: |
