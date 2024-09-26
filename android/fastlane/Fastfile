@@ -1,51 +1,53 @@
-#package_name = "<applicationID>"
-#json_key_file = "google-service-account-key.json"
-json_key_file("../google-service-account-key.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+# Define the package name and path to the json secret file
+json_key_file_path = "../google-service-account-key.json" # Path to the json secret file
 package_name("com.testreactnativeproject") # e.g. com.krausefx.app
-
 gradle_file_path = "./app/build.gradle"
 slack_weebhook_url = ENV["SLACK_WEBHOOK_URL"]
-######## END Android CONFIGURATIONS
 
 default_platform(:android)
 
 platform :android do
-
   desc "Build and deploy to internal track"
   lane :internal do
-
+    # Fetch the previous build number from Google Play
     previous_build_number = google_play_track_version_codes(
       package_name: package_name,
-      json_key: json_key_file,
-      track: "beta",
+      json_key_file: json_key_file_path, # Pass json_key_file as a parameter here
+      track: "beta"
     )[0]
 
+    # Increment the version code
     current_build_number = previous_build_number + 1
 
     increment_version_code(
       gradle_file_path: gradle_file_path,
       version_code: current_build_number
     )
-       
+
+    # Clean and bundle the release build
     gradle(
       task: "clean bundleRelease",
       gradle_path: "./gradlew"
     )
 
+    # Upload the app to Google Play Store
     upload_to_play_store(
       track: "beta",
       aab: "app/build/outputs/bundle/release/app-release.aab",
-    ) 
+      json_key_file: json_key_file_path, # Pass json_key_file to upload_to_play_store
+      package_name: package_name
+    )
 
+    # Notify via Slack
     slack(
       slack_url: slack_weebhook_url,
-      message: "Android : Build #{previous_build_number + 1} is available for Open Testing",
+      message: "Android : Build #{current_build_number} is available for Open Testing",
       channel: "#whenn-app",
       default_payloads: [],
       success: true,
       payload: {
         'Build Date' => Time.now,
-        'Build Number' => previous_build_number + 1
+        'Build Number' => current_build_number
       }
     )
   end
