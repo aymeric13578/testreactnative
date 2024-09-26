@@ -26,7 +26,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-
       - name: Install Ruby Dependencies
         run: |
           cd android
@@ -46,10 +45,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
-          
+
       - name: Setup Google Service Account Key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | jq '.' > android/google-service-account-key.json
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | jq . > android/google-service-account-key.json
 
       - name: Verify Google Services Account Key File
         run: |
