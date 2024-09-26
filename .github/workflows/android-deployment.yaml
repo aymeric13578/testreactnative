@@ -46,6 +46,10 @@ jobs:
       - name: Setup Google Service Account Key
         run: |
           printf "%s" "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
+      
+      - name: Verify Google Service Account Key File
+        run: |
+          cat android/google-service-account-key.json
 
       - name: Build and deploy
         run: |
