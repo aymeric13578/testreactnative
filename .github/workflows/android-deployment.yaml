@@ -42,11 +42,15 @@ jobs:
           cd android
           npm install
 
-      # Create the Google Service Account Key JSON file from the secret
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          
       - name: Setup Google Service Account Key
         run: |
-          printf "%s" "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
-      
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | jq '.' > android/google-service-account-key.json
+
       - name: Verify Google Services Account Key File
         run: |
           cat android/google-service-account-key.json
