@@ -45,13 +45,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
-          
+
       - name: Debug Google Service Account Key
         run: |
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | head -n 10  # Show only the first 10 lines for inspection
 
 
-      - name: Setup Google Service Account Key
+      - name: Setup Google Services Account Key
         run: |
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | jq . > android/google-service-account-key.json
 
