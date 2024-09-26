@@ -1,4 +1,4 @@
-name: android-deployment  # Set your desired name here
+name: android-deployment
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     continue-on-error: false
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -24,6 +24,16 @@ jobs:
           cd android
           bundle install
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Node.js Dependencies
+        run: |
+          cd android
+          npm install
+
       - name: Setup Google Service Account Key
         run: |
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > android/google-service-account-key.json
@@ -31,6 +41,5 @@ jobs:
       - name: Build and deploy
         run: |
           cd android
-          npm install
           export NODE_OPTIONS=--openssl-legacy-provider
           bundle exec fastlane android internal
