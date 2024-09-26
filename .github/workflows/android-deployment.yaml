@@ -48,7 +48,7 @@ jobs:
 
       - name: Debug Google Service Account Key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | head -n 10  # Show only the first 10 lines for inspection
+          printf "%s" "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" | head -n 10  # Show only the first 10 lines for inspection
 
 
       - name: Setup Google Services Account Key
