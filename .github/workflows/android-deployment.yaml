@@ -36,7 +36,7 @@ jobs:
 
       - name: Setup Google Service Account Key
         run: |
-          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > android/google-service-account-key.json
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
 
       - name: Build and deploy
         run: |
