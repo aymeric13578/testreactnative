@@ -45,7 +45,7 @@ jobs:
       # Create the Google Service Account Key JSON file from the secret
       - name: Setup Google Service Account Key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
+          printf "%s" "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > android/google-service-account-key.json
 
       - name: Build and deploy
         run: |
