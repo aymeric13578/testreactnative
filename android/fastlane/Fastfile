@@ -1,6 +1,5 @@
-# Define the package name and path to the json secret file
 package_name = "com.testreactnativeproject" # e.g. com.krausefx.app
-json_key_file_path = "../google-service-account-key.json" # Path to the json secret file
+json_key_file_path = "./google-service-account-key.json" # Correct path to the json secret file
 gradle_file_path = "./app/build.gradle"
 slack_weebhook_url = ENV["SLACK_WEBHOOK_URL"]
 
@@ -11,8 +10,8 @@ platform :android do
   lane :internal do
     # Fetch the previous build number from Google Play
     previous_build_number = google_play_track_version_codes(
-      package_name: package_name,         # Pass package_name as a string
-      json_key: json_key_file_path,       # Corrected to use `json_key`
+      package_name: package_name,         
+      json_key: json_key_file_path,       # Corrected to use the right path
       track: "beta"
     )[0]
 
@@ -34,8 +33,8 @@ platform :android do
     upload_to_play_store(
       track: "beta",
       aab: "app/build/outputs/bundle/release/app-release.aab",
-      json_key: json_key_file_path,      # Corrected to use `json_key`
-      package_name: package_name         # Pass package_name as a string
+      json_key: json_key_file_path,       # Correct path for the json key
+      package_name: package_name          
     )
 
     # Notify via Slack
